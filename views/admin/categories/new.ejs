@@ -1,0 +1,24 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+
+    <div class="container">
+        <hr/>
+    
+        <div class="card">
+            <div class="card-header">
+                <h2>Register of category</h2>
+            </div>
+        
+            <div class="card-body">
+                <form method="POST" action="/admin/categories/register">
+                    <input class="form-control" type="text" name="title" placeholder="Enter a title of category"/><br/>
+                    <button class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+<%- include ('../../partials/footer.ejs') %>
