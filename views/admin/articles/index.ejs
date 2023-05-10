@@ -5,11 +5,11 @@
 
 <div class="container">
     <hr/>
-    <h2>Categories</h2>
+    <h2>Articles</h2>
     <hr/>
     
-    <h3>Create a new category</h3>
-    <a href="/admin/categories/new" class="btn btn-primary">To create</a>
+    <h3>Create a new article</h3>
+    <a href="/admin/articles/new" class="btn btn-primary">To create</a>
 
     <hr/>
 
@@ -19,22 +19,24 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Slug</th>
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
         
         <tbody>
-            <% categories.forEach(category => { %>
+            <% articles.forEach(article => { %>
                 <tr>
-                    <th> <%= category.id %> </th>
-                    <th> <%= category.title %> </th>
-                    <th> <%= category.slug %> </th>
+                    <th> <%= article.id %> </th>
+                    <th> <%= article.title %> </th>
+                    <th> <%= article.slug %> </th>
+                    <th> <%= article.category.title %> </th>
                     <th>
 
-                        <a href="/admin/categories/alter/<%=category.id %>" class="btn btn-warning">Alter</a>
+                        <a href="/admin/articles/alter/<%=article.id%>" class="btn btn-warning">Alter</a>
 
-                        <form method="POST" action="/categories/delete" style="display: inline" onsubmit="confirmDelete(event, this)">
-                            <input type="hidden" name="id" value="<%= category.id %>"/>
+                        <form method="POST" action="/articles/delete" style="display: inline" onsubmit="confirmDelete(event, this)">
+                            <input type="hidden" name="id" value="<%= article.id %>"/>
                             <button class="btn btn-danger">Delete</button> 
                         </form>
                     </th>                   
@@ -51,7 +53,7 @@
 <script>
     function confirmDelete(event, form){
         event.preventDefault();
-        let validate = confirm('You want to delete the category ?');
+        let validate = confirm('You want to delete the article ?');
 
         if(validate == true){
             form.submit();

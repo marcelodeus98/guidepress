@@ -28,6 +28,7 @@ app.get('/', (req, res)=> {
 });
 
 app.use('/', categoriesController);
+app.use('/', articlesController);
 
 // CONNECT SERVER
 app.listen(PORT, (err) => {

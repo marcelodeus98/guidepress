@@ -3,7 +3,9 @@ const {Sequelize} = require('sequelize');
 const sequelize = new Sequelize('guidepress', 'root', '@Dark980', {
     host: 'localhost',
     port:3306,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    timezone: '-03:00',
+    logging: false
 });
 
 // CONNECT DATABASE

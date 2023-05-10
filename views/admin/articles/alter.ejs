@@ -7,13 +7,13 @@
     
         <div class="card">
             <div class="card-header">
-                <h2>Change category</h2>
+                <h2>Change article</h2>
             </div>
         
             <div class="card-body">
-                <form method="POST" action="/categories/update">
-                    <input type="hidden" name="id" value="<%= category.id %>"/>
-                    <input class="form-control" type="text" name="title" placeholder="Enter a title of category" value="<%= category.title %>"/><br/>
+                <form method="POST" action="/articles/update">
+                    <input type="hidden" name="id" value="<%= article.id %>"/>
+                    <input class="form-control" type="text" name="title" placeholder="Enter a title of article" value="<%= article.title %>"/><br/>
                     <button class="btn btn-primary">Change</button>
                 </form>
             </div>
