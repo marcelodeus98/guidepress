@@ -1,7 +1,6 @@
 <%- include ('../../partials/header.ejs') %>
 <%- include ('../../partials/navbar.ejs') %>
 
-
     <div class="container">
         <hr/>
     
@@ -14,12 +13,35 @@
                 <form method="POST" action="/articles/update">
                     <input type="hidden" name="id" value="<%= article.id %>"/>
                     <input class="form-control" type="text" name="title" placeholder="Enter a title of article" value="<%= article.title %>"/><br/>
-                    <button class="btn btn-primary">Change</button>
+                    <textarea class="form-control" name="description" id="article" placeholder="Enter your article here!"></textarea><br/>
+                    <labeL>Categories</labeL>
+                    <select name="category" class="form-control">
+                        
+                        <% categories.forEach((category) => { %>
+                            <option value="<%= category.id %>"> <%= category.title %> </option>
+                            <% }) %>
+                            
+                        </select><br/>
+                        <button class="btn btn-primary">Change</button>
                 </form>
             </div>
         </div>
     </div>
 
-
+    <div id="newContent" style="display: none;">
+        <%- article.body %>
+    </div>
 
 <%- include ('../../partials/footer.ejs') %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+
+<script>
+    tinymce.init({
+        selector: '#article',
+        init_instance_callback: () => {
+            tinymce.get("article").setContent($("#newContent").val())
+        },
+        plugins: 'image, save , autolink,  link , advlist, lists, preview, wordcount, fullscreen, insertdatetime, table, emoticons'
+    })
+</script>

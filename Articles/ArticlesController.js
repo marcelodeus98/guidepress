@@ -57,7 +57,9 @@ router.get('/admin/articles/alter/:id', (req, res) => {
 
     Article.findByPk(id).then(article => {
         if(article != undefined){
-            res.render('admin/articles/alter' , {article : article }).status(200);
+            Category.findAll( ).then(categories => {
+                res.render('admin/articles/alter' , {article : article, categories: categories }).status(200);
+            })
         }
         else{
             res.redirect('/admin/articles');
@@ -71,8 +73,15 @@ router.get('/admin/articles/alter/:id', (req, res) => {
 router.post('/articles/update', (req, res) => {
     let id = req.body.id;
     let title = req.body.title;
+    let body = req.body.description;
+    let categoryId = req.body.category;
 
-    Article.update({ title : title , slug: slugify(title)}, {
+    Article.update({ 
+        title : title,
+        slug: slugify(title),
+        categoryId: categoryId,
+        body: body}, 
+        {
         where : {
             id: id
         }
@@ -103,6 +112,50 @@ router.post('/articles/delete', (req, res ) => {
     else{
         res.redirect('/admin/articles');
     }
+})
+
+router.get('/articles/page/:num', (req, res) => {
+    let pageNotNum = req.params.num;
+    let page = parseInt(pageNotNum);
+    let offset = 0;
+
+    if(isNaN(page) || page == 1){
+        offset = 0;
+    }
+    else{
+        offset = (page -1 )* 4; 
+    }
+
+    Article.findAndCountAll({
+        limit: 4,
+        offset: offset,
+        oder:[
+            'id', 'DESC'
+        ]
+    }).then( articles => {
+        
+        var next;
+
+        if(offset + 4 >= articles.count){
+            next = false;
+        }
+        else{
+            next = true;
+        }        
+        
+        let result = {
+            articles: articles,
+            next: next,
+            page: page
+        }
+
+        Category.findAll().then( categories => {
+            res.render("admin/articles/page", {result: result, categories: categories});
+        }).catch(err => {
+            res.send(err)
+        })
+
+    })
 })
 
 module.exports = router;

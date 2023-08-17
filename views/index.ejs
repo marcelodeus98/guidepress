@@ -1,11 +1,40 @@
 <%- include ('./partials/header.ejs') %>
+<%- include ('./partials/homenavbar.ejs') %>
 
 <body>
-    <container>
-        <%- include ('./partials/navbar.ejs') %>
-        <h2>Welcome in blog GuidePress</h2>
+    <div class="container">
         <hr/>
-    </container>
+
+        <div class="jumbotron">
+            <h1 class="display-4">Hi, welcome!</h1>
+            <p class="lead">Guidepress is your blog for fun and miscellaneous article creation</p>
+            <hr class="my-4"/>
+            <p>Detailed Description</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">See more</a>
+        </div>
+
+        <hr/>
+
+        <% articles.forEach(article => { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= article.title %></h2>
+                </div> 
+    
+                <div class="card-body">
+                    <a href="/<%=article.slug%>" class="btn btn-primary">Ready article</a>
+                </div>
+            </div>
+        </br>
+        <% }) %>
+
+        <div class="row">
+            <div class=".col col-12">
+                <a href="/articles/page/2" style="float:right" class=""> Next >>>> </a>
+            </div>
+        </div>
+
+    </div>
 </body>
 
 <%- include ('./partials/footer.ejs') %>
