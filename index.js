@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+
+const tokenSecret  = "qetuoWRYIP123098"; 
 
 // FILE CONTROLLERS
 const articlesController = require('./Articles/ArticlesController');
 const categoriesController = require('./Categories/CategoriesController');
-const usersController = require('./User/UsersController');
 
 const app = express();
 
@@ -18,13 +18,6 @@ let PORT = 8080;
 // Use engine
 app.set('view engine', 'ejs');
 
-// Sessions
-app.use(session({
-    secret: "qwe123",
-    cookie: {
-        maxAge: 3000
-    }
-}))
 
 // Static
 app.use(express.static('public'));

@@ -13,16 +13,16 @@ router.get('/admin/articles', (req, res) => {
           }
     })
         .then((articles) => {
-            res.render('admin/articles/index', {articles : articles}).status(200);
+            res.render('admin/articles/index', {articles : articles});
         })
         .catch((err) => {
-            res.send('Err: Not possible list articles!').status(401);
+            res.send('Err: Not possible list articles!');
         });
 });
 
 router.get('/admin/articles/new', (req, res) => {
     Category.findAll().then(categories => {
-        res.render('admin/articles/new', {categories: categories}).status(200);
+        res.render('admin/articles/new', {categories: categories});
     })
 });
 
@@ -38,9 +38,9 @@ router.post('/admin/articles/register', (req, res) => {
             body: body, 
            categoryId: categoryId,
         }).then(() => {
-            res.redirect('/admin/articles').status(200);
+            res.redirect('/admin/articles');
         }).catch((err) => {
-            res.send('Err: The article not register!').status(401);
+            res.send('Err: The article not register!');
         }) ;
     }
     else{
@@ -58,14 +58,14 @@ router.get('/admin/articles/alter/:id', (req, res) => {
     Article.findByPk(id).then(article => {
         if(article != undefined){
             Category.findAll( ).then(categories => {
-                res.render('admin/articles/alter' , {article : article, categories: categories }).status(200);
+                res.render('admin/articles/alter' , {article : article, categories: categories });
             })
         }
         else{
             res.redirect('/admin/articles');
         }
     }).catch( err => {
-        res.redirect('/admin/articles').status(401);
+        res.redirect('/admin/articles');
     })
 })
 
@@ -86,9 +86,9 @@ router.post('/articles/update', (req, res) => {
             id: id
         }
     }).then(() => {
-        res.status(200).redirect('/admin/articles');
+        res.redirect('/admin/articles');
     }).catch(() => {
-        res.status(401).json({err : 'not update article'}).render('/admin/articles');
+        res.json({err : 'not update article'}).render('/admin/articles');
     })
 })
 
@@ -102,7 +102,7 @@ router.post('/articles/delete', (req, res ) => {
                     id: id
                 }
             }).then(() => {
-                res.redirect('/admin/articles').status(200);
+                res.redirect('/admin/articles');
             })
         }
         else{
